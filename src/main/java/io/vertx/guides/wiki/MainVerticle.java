@@ -36,11 +36,11 @@ public class MainVerticle extends AbstractVerticle {
 
   @Override
   public void start(Promise<Void> startPromise) throws Exception {
-    Vertx vertx = Vertx.vertx();
     Future<Void> steps = prepareDatabase(vertx).future().compose(t -> startHttpServer(vertx).future());
 
     steps.onComplete(ar -> {
-      if (ar.succeeded()) { startPromise.complete();
+      if (ar.succeeded()) {
+        startPromise.complete();
       } else {
         startPromise.fail(ar.cause());
       }
@@ -96,7 +96,7 @@ public class MainVerticle extends AbstractVerticle {
     return promise;
   }
 
-  private final FreeMarkerTemplateEngine templateEngine = FreeMarkerTemplateEngine.create(Vertx.vertx());
+  private FreeMarkerTemplateEngine templateEngine = FreeMarkerTemplateEngine.create(Vertx.vertx());
 
   private void indexHandler(RoutingContext context) {
     dbClient.getConnection(car -> {
@@ -137,7 +137,8 @@ public class MainVerticle extends AbstractVerticle {
 
   private void pageRenderingHandler(RoutingContext context) {
     String page = context.request().getParam("page");
-    dbClient.getConnection(car -> { if (car.succeeded()) {
+    dbClient.getConnection(car -> {
+      if (car.succeeded()) {
       SQLConnection connection = car.result();
       connection.queryWithParams(SQL_GET_PAGE, new JsonArray().add(page), fetch -> {
         connection.close();
@@ -157,7 +158,8 @@ public class MainVerticle extends AbstractVerticle {
           templateEngine.render(context.data(), "/templates/page.ftl", ar -> {
             if (ar.succeeded()) {
               context.response().putHeader("Content-Type", "text/html");
-              context.response().end(ar.result()); } else {
+              context.response().end(ar.result());
+            } else {
               context.fail(ar.cause());
             }
           });
