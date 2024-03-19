@@ -186,3 +186,6 @@ nbdist/
 
 ### HSQLDB ###
 db/
+
+### Generated code ###
+src/main/generated/

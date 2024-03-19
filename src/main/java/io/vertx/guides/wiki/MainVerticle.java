@@ -4,6 +4,7 @@ import io.vertx.core.AbstractVerticle;
 import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Future;
 import io.vertx.core.Promise;
+import io.vertx.guides.wiki.database.WikiDatabaseVerticle;
 
 public class MainVerticle extends AbstractVerticle {
 
@@ -11,7 +12,7 @@ public class MainVerticle extends AbstractVerticle {
   public void start(Promise<Void> startPromise) {
     Future<String> dbVerticleDeployment = vertx.deployVerticle(new WikiDatabaseVerticle());
 
-    dbVerticleDeployment.compose(id -> vertx.deployVerticle("io.vertx.guides.wiki.HttpServerVerticle",
+    dbVerticleDeployment.compose(id -> vertx.deployVerticle("io.vertx.guides.wiki.http.HttpServerVerticle",
         new DeploymentOptions().setInstances(2)))
       .onComplete(ar -> {
         if (ar.succeeded()) {
