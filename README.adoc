@@ -2,6 +2,13 @@
 
 image:https://img.shields.io/badge/vert.x-4.5.5-purple.svg[link="https://vertx.io"]
 
+Simple wiki application developped with Eclipse Vert.x
+
+Checkout the different branches of this repository to jump between the different steps its the development :
+
+- step-1 : a minimally viable wiki written with Vert.x
+- step-2 : refactoring into independent and reusable verticles
+
 This application was generated using http://start.vertx.io
 
 == Building
