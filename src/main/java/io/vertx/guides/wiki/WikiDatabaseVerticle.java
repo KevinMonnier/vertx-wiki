@@ -35,7 +35,8 @@ public class WikiDatabaseVerticle  extends AbstractVerticle {
   private final HashMap<SqlQuery, String> sqlQueries = new HashMap<>();
 
   private void loadSqlQueries() throws IOException {
-    String queriesFile = config().getString(CONFIG_WIKIDB_SQL_QUERIES_RESOURCE_FILE); InputStream queriesInputStream;
+    String queriesFile = config().getString(CONFIG_WIKIDB_SQL_QUERIES_RESOURCE_FILE);
+    InputStream queriesInputStream;
     if (queriesFile != null) {
       queriesInputStream = new FileInputStream(queriesFile);
     } else {
